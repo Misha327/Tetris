@@ -28,8 +28,8 @@ body {
 }
 
 .mini-grid {
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
     display: flex;
     flex-wrap: wrap;
     background-color: chartreuse;
@@ -38,6 +38,6 @@ body {
 .mini-grid div {
     height: 20px;
     width: 20px;
-    background-color: rgb(26, 172, 216);
+    /* background-color: rgb(26, 172, 216); */
 
 }
