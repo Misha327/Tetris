@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         [1, 2, 1 + width, 2 + width]
     ];
 
-    let color = ['green', 'blue', 'red', 'purple', 'yellow'];
+    let color = ['green', 'blue', 'red', 'purple', 'orange'];
 
     const tetrominoes = [lTetromino, iTetromino, tTetromino, sTetromino, oTetromino];
     let currLocation = 3;
