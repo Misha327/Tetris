@@ -61,7 +61,7 @@ body {
     height: 420px;
     width: 210px;
     border-radius: 4px;
-    border: 1px dotted;
+    /* border: 1px dotted; */
 }
 
 .grid div {
@@ -82,7 +82,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     background-color: rgb(197, 236, 157);
-    border: 1px dotted;
+    /* border: 1px dotted; */
     border-radius: 6px;
 }
 
