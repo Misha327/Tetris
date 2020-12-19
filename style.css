@@ -10,7 +10,7 @@ body {
 	overflow: hidden;
 }
 .main-container {
-  margin: auto;
+	margin: auto;
 	/* align-items: stretch; */
 	display: flex;
 	flex-direction: column;
@@ -27,11 +27,10 @@ body {
 }
 
 .title {
-  color: white;
+	color: white;
 	margin-bottom: 20px;
+	text-shadow: 1px 1px 3px #0000009c;
 }
-
-
 
 @media only screen and (min-width: 576px) {
 	.main-container {
@@ -112,14 +111,14 @@ body {
 .grid {
 	min-width: 200px;
 	margin-right: 30px;
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 	flex-flow: wrap;
 	height: 420px;
 	width: 210px;
 	border-radius: 4px;
 	box-shadow: 0 0 9px #0000009e;
-
+	position: relative;
 	/* border: 1px dotted; */
 }
 
@@ -134,6 +133,7 @@ body {
 }
 
 .mini-grid {
+	position: relative;
 	height: 126px;
 	width: 147px;
 	display: flex;
@@ -146,8 +146,8 @@ body {
 .mini-grid div {
 	height: 20px;
 	width: 20px;
-  margin: 0.5px;
-  border: none;
+	margin: 0.5px;
+	border: none;
 	/* border: 1px dotted; */
 	/* margin: 1px; */
 	/* background-color: rgb(26, 172, 216); */
@@ -188,6 +188,8 @@ button:active {
 }
 
 h3 {
+	text-shadow: 1px 1px 3px #0000009c;
+
 	/* margin: 0 20px 20px; */
 	width: 100%;
 	margin: 0 auto 10px;
@@ -197,6 +199,20 @@ h3 {
 	display: flex;
 	justify-content: center;
 	/* padding: 0 20px; */
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #00000069;
+	color: white;
+  display: flex;
+  font-size: 32px;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Inserting this collapsed row between two flex items will make 
