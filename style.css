@@ -47,7 +47,6 @@ body {
 		}
 	}
 }
-
 @media only screen and (min-width: 768px) {
 	.main-container {
 		transform: scale(1.3);
@@ -93,6 +92,7 @@ body {
 		}
 	}
 }
+
 .container {
 	/* margin-left: auto; */
 	/* margin-bottom: auto; */
@@ -132,15 +132,26 @@ body {
 	margin: 0.5px;
 }
 
+.center {
+	height: 100px;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 9px #0000009e;
+
+}
+
 .mini-grid {
 	position: relative;
-	height: 126px;
-	width: 147px;
+	height: 84px;
+	width: 63px;
 	display: flex;
 	flex-wrap: wrap;
-	box-shadow: 0 0 9px #0000009e;
 	/* border: 1px dotted; */
-	border-radius: 6px;
+  border-radius: 6px;
+  /* box-shadow: 0 0 9px #0000009e; */
+
 }
 
 .mini-grid div {
@@ -209,14 +220,14 @@ h3 {
 	width: 100%;
 	background: #00000069;
 	color: white;
-  display: flex;
-  font-size: 32px;
+	display: flex;
+	font-size: 32px;
 	justify-content: center;
 	align-items: center;
 }
 
 /* Inserting this collapsed row between two flex items will make 
- * the flex item that comes after it break to a new row */
+ /* the flex item that comes after it break to a new row */
 .break {
 	flex-basis: 100%;
 	height: 0;
