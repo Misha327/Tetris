@@ -139,10 +139,27 @@ body {
 	justify-content: center;
   align-items: center;
   box-shadow: 0 0 9px #0000009e;
+  position: relative;
+}
 
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: #00000069;
+	color: white;
+	display: flex;
+	font-size: 32px;
+	justify-content: center;
+  align-items: center;
+  
+  z-index: 2;
 }
 
 .mini-grid {
+
 	position: relative;
 	height: 84px;
 	width: 63px;
@@ -212,19 +229,7 @@ h3 {
 	/* padding: 0 20px; */
 }
 
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background: #00000069;
-	color: white;
-	display: flex;
-	font-size: 32px;
-	justify-content: center;
-	align-items: center;
-}
+
 
 /* Inserting this collapsed row between two flex items will make 
  /* the flex item that comes after it break to a new row */

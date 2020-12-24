@@ -176,10 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function moveDown() {
 		freeze();
-
 		undraw();
 		currLocation += 10;
+		score += 1;
+		scoreDisplay.innerHTML = score;
 		draw();
+		freeze();
 	}
 
 	function rotate() {
@@ -229,12 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// Show up-next tetromino in mini-grid display
-	const displayWidth = 7;
-	const displayIndex = 0;
-
 	function displayShape() {
 		const miniGrid = document.querySelector(".mini-grid");
-
 		/*
       mini grid sizes h x w
       L = 4x3 
@@ -242,18 +240,16 @@ document.addEventListener("DOMContentLoaded", () => {
       I = 3x4
       S = 4x3 
       O = 4x2
-      */
-		//  L && T
+    */
+
+		//  L, T, S
 		if (nextRandom === 0 || nextRandom === 1 || nextRandom === 3) {
-			if (miniGrid.childElementCount === 12 + 1) {
-				if (miniGridHeight != 4) {
-					miniGrid.style.height = "84px";
-					miniGridHeight = 4;
-				}
-				if (miniGridWidth != 3) {
-					miniGrid.style.width = "63px";
-					miniGridWidth = 3;
-				}
+			if (miniGrid.childElementCount === 12) {
+				miniGrid.style.height = "84px";
+				miniGridHeight = 4;
+
+				miniGrid.style.width = "63px";
+				miniGridWidth = 3;
 			} else {
 				for (let i = 0; i < 4; i++) {
 					miniGrid.appendChild(document.createElement("div"));
@@ -267,15 +263,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		//  I
 		else if (nextRandom === 2) {
 			console.log("in I");
-			if (miniGrid.childElementCount === 12 + 1) {
-				if (miniGridHeight != 3) {
-					miniGrid.style.height = "63px";
-					miniGridHeight = 3;
-				}
-				if (miniGridWidth != 4) {
-					miniGrid.style.width = "84px";
-					miniGridWidth = 4;
-				}
+			if (miniGrid.childElementCount === 12) {
+				miniGrid.style.height = "63px";
+				miniGridHeight = 3;
+
+				miniGrid.style.width = "84px";
+				miniGridWidth = 4;
 			} else {
 				for (let i = 0; i < 4; i++) {
 					miniGrid.appendChild(document.createElement("div"));
@@ -291,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		else {
 			if (miniGridHeight != 4) {
 				for (let i = 0; i < 4; i++) {
-					miniGrid.removeChild(miniGrid.lastElementChild);
+					miniGrid.appendChild(document.createElement("div"));
 				}
 				miniGrid.style.height = "84px";
 				miniGridHeight = 4;
@@ -305,11 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 
-		const displaySquares = document.querySelectorAll(".mini-grid div");
-		displaySquares.forEach((square) => {
-			square.classList.remove("tetromino");
-			square.style.backgroundColor = "";
-		});
 		let upNextTetromino = [
 			// L
 			[
@@ -348,11 +336,15 @@ document.addEventListener("DOMContentLoaded", () => {
 				1 + miniGridWidth * 2,
 			],
 		];
-
+		const displaySquares = document.querySelectorAll(".mini-grid div");
+		displaySquares.forEach((square) => {
+			square.classList.remove("tetromino");
+			square.style.backgroundColor = "";
+		});
+		console.log(displaySquares);
 		upNextTetromino[nextRandom].forEach((index) => {
-			displaySquares[displayIndex + index].classList.add("tetromino");
-			displaySquares[displayIndex + index].style.backgroundColor =
-				color[nextRandom];
+			displaySquares[index].classList.add("tetromino");
+			displaySquares[index].style.backgroundColor = color[nextRandom];
 		});
 	}
 
@@ -366,6 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				pauseOverlay.classList.remove("overlay");
 				pauseOverlay.textContent = "";
 				isPaused = false;
+				nextRandom = Math.floor(Math.random() * tetrominoes.length);
 
 				squares.forEach((square) => {
 					if (
@@ -386,8 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				pauseOverlay.appendChild(document.createTextNode("Paused"));
 			}
 		} else {
-      nextRandom = Math.floor(Math.random() * tetrominoes.length);
-
 			displayShape();
 
 			if (isPaused) {
@@ -403,9 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	function nextShape() {
-		current.forEach((index) => {
-			squares[currLocation + index].classList.add("taken");
-		});
+		addScore();
 		random = nextRandom;
 		nextRandom = Math.floor(Math.random() * tetrominoes.length);
 		current = tetrominoes[random][0];
@@ -414,15 +403,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		currLocation = -7;
 		currRotation = 0;
+
 		draw();
-		addScore();
 	}
 
 	function freeze() {
+		squares = Array.from(document.querySelectorAll(".grid div"));
 		const atBottom = current.some(
 			(index) => index + currLocation + width >= 200
 		);
 		if (atBottom) {
+			current.forEach((index) => {
+				squares[currLocation + index].classList.add("taken");
+			});
 			nextShape();
 		} else {
 			for (let i = 0; i < 4; i++) {
@@ -432,10 +425,11 @@ document.addEventListener("DOMContentLoaded", () => {
 							"taken"
 						)
 					) {
-						// disabled = true;
+						current.forEach((index) => {
+							squares[currLocation + index].classList.add("taken");
+						});
 						nextShape();
 						return;
-						// disabled = false;
 					}
 				}
 			}
@@ -443,6 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function addScore() {
+		disabled = true;
 		for (let i = 0; i < 199; i += width) {
 			const row = [
 				i,
@@ -458,7 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			];
 
 			if (row.every((index) => squares[index].classList.contains("taken"))) {
-				score += 10;
+				score += 100;
 				scoreDisplay.innerHTML = score;
 				row.forEach((index) => {
 					squares[index].classList.remove("taken");
@@ -468,11 +463,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				const squaresRemoved = squares.splice(i, width);
 				squares = squaresRemoved.concat(squares);
 				squares.forEach((cell) => grid.appendChild(cell));
-				if (score % 100 == 0) {
-					gameSpeed += 200;
+				if (score % 1000 == 0) {
+					gameSpeed -= 100;
 				}
 			}
 		}
+		disabled = false;
 	}
 
 	function gameLoop() {
@@ -488,7 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (squares[i].classList.contains("taken")) {
 				clearInterval(timerId);
 				score = 0;
-        gameFinished = true;
+				gameFinished = true;
 				pauseOverlay.classList.add("overlay");
 				pauseOverlay.appendChild(document.createTextNode("Game Over"));
 				return;
