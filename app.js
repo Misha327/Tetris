@@ -2,8 +2,10 @@
  *  [X] align the scene
  *  [X] prevent movement during pause
  *  [X] make start button restart the game after gameover
- *  [] fix invisible tetromino after row clear
+ *  [X] fix invisible tetromino after row clear
  *  [X] stop piece from overlapping when rotated into another
+ *  [] if you go past the side of the grid before the tetromino is in view, 
+ *     it gets stuck.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -104,14 +106,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				squares[currLocation + index].classList.remove("tetromino");
 				squares[currLocation + index].style.backgroundColor = "";
 			}
-    });
-    if (score >= scoreThreshold) {
-      gameSpeed -= 100;
-      clearInterval(timerId);
+		});
+		if (score >= scoreThreshold) {
+			gameSpeed -= 80;
+			clearInterval(timerId);
 
-      timerId = setInterval(gameLoop, gameSpeed);
-      scoreThreshold += 1000;
-    }
+			timerId = setInterval(gameLoop, gameSpeed);
+			scoreThreshold += 1000;
+		}
 	}
 
 	let down = false;
@@ -165,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const isAtRightEdge = current.some(
 			(index) => (currLocation + index) % width == 9
 		);
-
+		console.log(current.some((square) => square + currLocation));
 		if (!isAtRightEdge) {
 			currLocation += 1;
 		}
@@ -422,8 +424,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (atBottom) {
 			current.forEach((index) => {
 				squares[currLocation + index].classList.add("taken");
-      });
-      
+			});
+
 			nextShape();
 		} else {
 			for (let i = 0; i < 4; i++) {
@@ -436,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						current.forEach((index) => {
 							squares[currLocation + index].classList.add("taken");
 						});
-					
+
 						nextShape();
 						return;
 					}
