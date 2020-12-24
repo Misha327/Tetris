@@ -475,13 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				const squaresRemoved = squares.splice(i, width);
 				squares = squaresRemoved.concat(squares);
 				squares.forEach((cell) => grid.appendChild(cell));
-				if (score >= scoreThreshold) {
-					gameSpeed -= 200;
-					clearInterval(timerId);
-
-					timerId = setInterval(gameLoop, gameSpeed);
-					scoreThreshold += 500;
-				}
+				
 			}
 		}
 		disabled = false;
