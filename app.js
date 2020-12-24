@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let disabled = false;
 	let miniGridHeight = 4;
 	let miniGridWidth = 3;
-	let scoreThreshold = 500;
+	let scoreThreshold = 1000;
 	document.addEventListener("keydown", control);
 	document.addEventListener("keyup", function () {
 		down = false;
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
       clearInterval(timerId);
 
       timerId = setInterval(gameLoop, gameSpeed);
-      scoreThreshold += 500;
+      scoreThreshold += 1000;
     }
 	}
 
