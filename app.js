@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let disabled = false;
 	let miniGridHeight = 4;
 	let miniGridWidth = 3;
-
+	let scoreThreshold = 500;
 	document.addEventListener("keydown", control);
 	document.addEventListener("keyup", function () {
 		down = false;
@@ -104,7 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				squares[currLocation + index].classList.remove("tetromino");
 				squares[currLocation + index].style.backgroundColor = "";
 			}
-		});
+    });
+    if (score >= scoreThreshold) {
+      gameSpeed -= 100;
+      clearInterval(timerId);
+
+      timerId = setInterval(gameLoop, gameSpeed);
+      scoreThreshold += 500;
+    }
 	}
 
 	let down = false;
@@ -181,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		score += 1;
 		scoreDisplay.innerHTML = score;
 		draw();
-		freeze();
 	}
 
 	function rotate() {
@@ -358,8 +364,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				pauseOverlay.classList.remove("overlay");
 				pauseOverlay.textContent = "";
 				isPaused = false;
+				scoreDisplay.innerHTML = score;
 				nextRandom = Math.floor(Math.random() * tetrominoes.length);
-
+				gameSpeed = 800;
 				squares.forEach((square) => {
 					if (
 						square.classList.contains("tetromino") ||
@@ -370,8 +377,8 @@ document.addEventListener("DOMContentLoaded", () => {
 						square.style.backgroundColor = null;
 					}
 				});
+				gameFinished = false;
 			}
-			gameFinished = false;
 
 			if (isPaused) {
 				pauseMiniOverlay.classList.add("overlay");
@@ -415,7 +422,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (atBottom) {
 			current.forEach((index) => {
 				squares[currLocation + index].classList.add("taken");
-			});
+      });
+      
 			nextShape();
 		} else {
 			for (let i = 0; i < 4; i++) {
@@ -428,6 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						current.forEach((index) => {
 							squares[currLocation + index].classList.add("taken");
 						});
+					
 						nextShape();
 						return;
 					}
@@ -455,6 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (row.every((index) => squares[index].classList.contains("taken"))) {
 				score += 100;
 				scoreDisplay.innerHTML = score;
+
 				row.forEach((index) => {
 					squares[index].classList.remove("taken");
 					squares[index].classList.remove("tetromino");
@@ -463,8 +473,12 @@ document.addEventListener("DOMContentLoaded", () => {
 				const squaresRemoved = squares.splice(i, width);
 				squares = squaresRemoved.concat(squares);
 				squares.forEach((cell) => grid.appendChild(cell));
-				if (score % 1000 == 0) {
-					gameSpeed -= 100;
+				if (score >= scoreThreshold) {
+					gameSpeed -= 200;
+					clearInterval(timerId);
+
+					timerId = setInterval(gameLoop, gameSpeed);
+					scoreThreshold += 500;
 				}
 			}
 		}
