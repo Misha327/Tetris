@@ -4,7 +4,7 @@
  *  [X] make start button restart the game after gameover
  *  [X] fix invisible tetromino after row clear
  *  [X] stop piece from overlapping when rotated into another
- *  [] if you go past the side of the grid before the tetromino is in view, 
+ *  [] if you go past the side of the grid before the tetromino is in view,
  *     it gets stuck.
  */
 
@@ -147,7 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	function moveLeft() {
 		undraw();
 		const isAtLeftEdge = current.some(
-			(index) => (currLocation + index) % width == 0
+			(index) =>
+				(currLocation + index) % width == 0 ||
+				(currLocation + index) % width == -10
 		);
 		if (!isAtLeftEdge) {
 			currLocation -= 1;
@@ -165,7 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
 	function moveRight() {
 		undraw();
 		const isAtRightEdge = current.some(
-			(index) => (currLocation + index) % width == 9
+			(index) =>
+				(currLocation + index) % width == 9 ||
+				(currLocation + index) % width == -1
 		);
 		console.log(current.some((square) => square + currLocation));
 		if (!isAtRightEdge) {
@@ -475,7 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				const squaresRemoved = squares.splice(i, width);
 				squares = squaresRemoved.concat(squares);
 				squares.forEach((cell) => grid.appendChild(cell));
-				
 			}
 		}
 		disabled = false;
