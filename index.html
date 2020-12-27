@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="app.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+  </style>
   <title>Tetris</title>
 </head>
 
@@ -15,7 +19,14 @@
 
   <div class="main-container">
     <div>
-      <h1 class="title flex-center">Tetris</h1>
+      <h1 class="title flex-center">
+        <span style="color:rgba(239, 123, 123, 0.90)">T</span>
+        <span style="color:rgba(92, 188, 98, 0.90)">e</span>
+        <span style="color:rgba(239, 123, 123, 0.90)">t</span>
+        <span style="color:rgba(151, 90, 160, 0.90)">r</span>
+        <span style="color:rgba(200, 202, 83, 0.90)">i</span>
+        <span style="color:rgba(102, 186, 214, 0.90)">s</span>
+      </h1>
     </div>
     <div class="game-wrapper">
 
@@ -227,12 +238,14 @@
         </div>
       </div>
 
-      <div class="column">
+      <div class="column second-panel">
         <!-- <div class="container"> -->
         <h3 class="flex-center">Score:&nbsp; <span id="score">0</span></h3>
 
         <!-- <div class="break"></div> -->
-        <div class="secondary-container"></div>
+        <div class="secondary-container">
+
+        </div>
         <div class="center">
           <section id="mini-overlay" style="position: absolute;"></section>
 
@@ -255,7 +268,7 @@
           </div>
         </div>
 
-        <button id="start-button">Start/Pause</button>
+        <button id="start-button">Start</button>
 
         <!-- </div> -->
       </div>

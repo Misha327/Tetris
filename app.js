@@ -365,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			clearInterval(timerId);
 			timerId = null;
 			isPaused = true;
+			button.innerHTML = "Unpause";
 
 			if (gameFinished) {
 				pauseOverlay.classList.remove("overlay");
@@ -373,6 +374,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				scoreDisplay.innerHTML = score;
 				nextRandom = Math.floor(Math.random() * tetrominoes.length);
 				gameSpeed = 800;
+				button.innerHTML = "Start";
+
 				squares.forEach((square) => {
 					if (
 						square.classList.contains("tetromino") ||
@@ -401,7 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				isPaused = false;
 			}
-
+			button.innerHTML = "Pause";
 			timerId = setInterval(gameLoop, gameSpeed);
 		}
 	});
@@ -498,6 +501,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				clearInterval(timerId);
 				score = 0;
 				gameFinished = true;
+				button.innerHTML = "Reset";
+
 				pauseOverlay.classList.add("overlay");
 				pauseOverlay.appendChild(document.createTextNode("Game Over"));
 				return;
